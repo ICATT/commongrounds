@@ -8,9 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <OpenApiReference Include="OpenAPIs\OpenPersonen.json" CodeGenerator="NSwagCSharp" Namespace="OpenPersonen" ClassName="GeneratedClient" OperationGenerationMode="SingleClientFromOperationId" Options="/OperationGenerationMode:SingleClientFromOperationId  /UseBaseUrl:false" UseBasUrl="false">
+    <OpenApiReference Include="OpenAPIs\OpenPersonen.json" CodeGenerator="NSwagCSharp" Namespace="OpenPersonen" ClassName="GeneratedClient" Options="/OperationGenerationMode:SingleClientFromOperationId /UseBaseUrl:false">
       <SourceUri>http://localhost:8000/api/schema/?format=openapi</SourceUri>
-      <Options>/OperationGenerationMode:SingleClientFromOperationId /UseBaseUrl:false</Options>
     </OpenApiReference>
   </ItemGroup>
 
