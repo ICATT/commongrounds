@@ -1,20 +1,20 @@
 version: '3.4'
 
 services:
-  demoapi:
-    image: demoapi
-    build:
-      context: ../DemoApi/DemoApi
-      dockerfile: Dockerfile
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-    ports:
-      - "26324:80"
-      - "44338:443"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+  # demoapi:
+  #   image: demoapi
+  #   build:
+  #     context: ../DemoApi/DemoApi
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ASPNETCORE_URLS=https://+:443;http://+:80
+  #   ports:
+  #     - "26324:80"
+  #     - "44338:443"
+  #   volumes:
+  #     - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+  #     - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 
   db:
     image: postgres:12-alpine

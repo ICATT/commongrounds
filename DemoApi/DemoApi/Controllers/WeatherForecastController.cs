@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using OpenPersonen;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace DemoApi.Controllers
@@ -11,29 +10,42 @@ namespace DemoApi.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly GeneratedClient _generatedClient;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, GeneratedClient generatedClient)
         {
             _logger = logger;
+            _generatedClient = generatedClient;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<ActionResult<IngeschrevenPersoon>> Get()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            try
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+                return await _generatedClient.Ingeschrevenpersonen_readAsync("999990676");
+            }
+            catch(ApiException<Fout> e)
+            {
+                _logger.LogError(e, "error in generated client");
+                return StatusCode(e.StatusCode, e.Result);
+            }
+            catch (ApiException<ValidatieFout> e)
+            {
+                _logger.LogError(e, "error in generated client");
+                return StatusCode(e.StatusCode, e.Result);
+            }
+            catch (ApiException e)
+            {
+                _logger.LogError(e, "error in generated client");
+                return StatusCode(e.StatusCode, e.Message);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "error in generated client");
+                throw;
+            }
         }
     }
 }

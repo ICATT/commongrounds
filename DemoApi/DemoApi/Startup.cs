@@ -32,6 +32,11 @@ namespace DemoApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DemoApi", Version = "v1" });
             });
+
+            services.AddHttpClient<OpenPersonen.GeneratedClient>(client =>
+            {
+                client.BaseAddress = new Uri("http://localhost:8000/api/");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
