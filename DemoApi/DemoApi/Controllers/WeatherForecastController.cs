@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using OpenPersonen;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
+using VrijBrp;
 
 namespace DemoApi.Controllers
 {
@@ -11,30 +12,20 @@ namespace DemoApi.Controllers
     public class WeatherForecastController : ControllerBase
     {
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly GeneratedClient _generatedClient;
+        private readonly Client _generatedClient;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, GeneratedClient generatedClient)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, Client generatedClient)
         {
             _logger = logger;
             _generatedClient = generatedClient;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IngeschrevenPersoon>> Get()
+        public async Task<ActionResult<IngeschrevenPersoonHalCollectie>> Get(CancellationToken token)
         {
             try
             {
-                return await _generatedClient.Ingeschrevenpersonen_readAsync("999990676");
-            }
-            catch(ApiException<Fout> e)
-            {
-                _logger.LogError(e, "error in generated client");
-                return StatusCode(e.StatusCode, e.Result);
-            }
-            catch (ApiException<ValidatieFout> e)
-            {
-                _logger.LogError(e, "error in generated client");
-                return StatusCode(e.StatusCode, e.Result);
+                return await _generatedClient.GetIngeschrevenPersonenAsync(inclusiefOverledenPersonen: false, verblijfplaats__huisnummer: 1, verblijfplaats__huisletter: "a", cancellationToken: token);
             }
             catch (ApiException e)
             {

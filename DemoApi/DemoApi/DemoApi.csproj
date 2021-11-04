@@ -8,9 +8,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <OpenApiReference Include="OpenAPIs\OpenPersonen.json" CodeGenerator="NSwagCSharp" Namespace="OpenPersonen" ClassName="GeneratedClient" Options="/OperationGenerationMode:SingleClientFromOperationId /UseBaseUrl:false">
-      <SourceUri>http://localhost:8000/api/schema/?format=openapi</SourceUri>
+    <Content Remove="OpenAPIs\VrijBrp.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="OpenAPIs\VrijBrp.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <OpenApiReference Include="OpenAPIs\VrijBrp.json" CodeGenerator="NSwagCSharp" Namespace="VrijBrp" ClassName="{controller}Client" Options="/UseBaseUrl:false /GenerateOptionalParameters:true">
+      <SourceUri>https://vrij-brp.demodam.nl/haal-centraal-brp-bevragen/public/v3/api-docs/bevraging-ingeschreven-personen-1.3</SourceUri>
     </OpenApiReference>
+    <!--<OpenApiReference Include="OpenAPIs\OpenPersonen.json" CodeGenerator="NSwagCSharp" Namespace="OpenPersonen" ClassName="{controller}Client" Options="/UseBaseUrl:false">
+      <SourceUri>http://localhost:8000/api/schema/?format=openapi</SourceUri>
+    </OpenApiReference>-->
   </ItemGroup>
 
   <ItemGroup>
